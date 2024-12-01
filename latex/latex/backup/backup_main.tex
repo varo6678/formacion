@@ -1,0 +1,337 @@
+% EC_UA1_T1/ESTADISTICA_COMPUTACIONAL_UA1_T1/main.tex
+
+\documentclass{template/uem_theme}
+
+% ################################################################################################
+% Para incluir los paquetes necesarios, comandos y glosario.
+% ################################################################################################
+\input{utils/paquetes.tex}
+\input{utils/glosario.tex}
+\input{utils/comandos.tex}
+
+% ########################################################################################
+% I should copy this in the rest of docs.
+% ########################################################################################
+
+\begin{document}
+
+\uemFileTitle{Bases de datos}{Control de Versiones \href{https://git-scm.com/}{\textit{Git}} con \href{https://github.com}{\textit{GitHub}}}
+
+\uemListContents
+
+\section*{Presentación}
+\uemAddContents{Presentación}
+\label{sec:presentacion}
+
+El control de versiones es una práctica fundamental en el desarrollo de software, permitiendo gestionar los cambios en el código fuente de manera eficiente y colaborativa. En este tema, exploraremos el uso de \href{https://git-scm.com/}{\textit{Git}} y \textit{\href{https://github.com}{\textit{GitHub}}} para el control de versiones, desde la instalación hasta la gestión de ramas y la realización de \textit{merges}.
+
+\section*{Objetivos}
+\uemAddContents{Objetivos}
+\label{sec:objetivos}
+
+Los objetivos de este tema son:
+\begin{itemize}
+    \item Comprender qué es \href{https://git-scm.com/}{\textit{Git}} y cómo funciona como sistema de control de versiones.
+    \item Aprender a instalar \href{https://git-scm.com/}{\textit{Git}} y configurar un repositorio local.
+    \item Crear y clonar repositorios utilizando \href{https://github.com}{\textit{GitHub}}.
+    \item Entender la estructura de ramas en un flujo de trabajo profesional.
+    \item Realizar merges entre diferentes ramas utilizando \href{https://git-scm.com/}{\textit{Git}}.
+\end{itemize}
+
+
+\newpage
+\section{Introducción a \href{https://git-scm.com/}{\textit{Git}} y \href{https://github.com}{\textit{GitHub}}}
+\subsection{¿Qué es \href{https://git-scm.com/}{\textit{Git}}?}
+\href{https://git-scm.com/}{\textit{Git}} es un sistema de control de versiones que permite a múltiples desarrolladores trabajar en el mismo proyecto sin interferir entre sí. A diferencia de los sistemas de control de versiones centralizados, \href{https://git-scm.com/}{\textit{Git}} permite a cada desarrollador tener una copia completa del historial del proyecto.
+\vspace{0.5cm}
+
+\begin{uemBulbBox}{
+	\textbf{Curiosidad}
+ 
+	¿Sabías que el creador de \href{https://git-scm.com/}{Git}, Linus Torvalds, también es el creador del sistema operativo \href{https://www.kernel.org/}{Linux}? Linus desarrolló \href{https://git-scm.com/}{Git} en 2005 para ayudar con la gestión del desarrollo del kernel de \href{https://www.kernel.org/}{Linux}. Desde entonces, \href{https://git-scm.com/}{Git} se ha convertido en uno de los sistemas de control de versiones más utilizados en el mundo.
+
+}\end{uemBulbBox}
+
+\subsection{¿Qué es \href{https://github.com}{\textit{GitHub}}}
+\href{https://github.com}{\textit{GitHub}} es una plataforma en línea que aloja repositorios \href{https://git-scm.com/}{\textit{Git}}, proporcionando herramientas adicionales para la colaboración, revisión de código, integración continua, y más. \href{https://github.com}{\textit{GitHub}} facilita el trabajo en equipo, permitiendo compartir código y colaborar en proyectos desde cualquier lugar del mundo.
+
+\newpage
+\section{Instalación y Configuración de \href{https://git-scm.com/}{\textit{Git}}}
+\subsection{Instalación de \href{https://git-scm.com/}{\textit{Git}}}
+Para comenzar a utilizar \href{https://git-scm.com/}{\textit{Git}}, primero debes instalarlo en tu sistema. A continuación, se presentan los pasos para diferentes sistemas operativos:
+\vspace{0.5cm}
+
+\begin{uemClipBox}{
+    \textbf{En \textit{Windows}:}
+    \begin{itemize}
+        \item Descarga \href{https://git-scm.com/}{\textit{Git}} desde \href{https://github.com/git-for-windows/git/releases/download/v2.46.0.windows.1/Git-2.46.0-64-bit.exe}{último \textit{release} para \textit{Windows} (.exe)}.
+        \item Ejecuta el instalador y sigue las instrucciones. Es recomendable aceptar las configuraciones predeterminadas.
+    \end{itemize}
+}\end{uemClipBox}
+
+\begin{uemClipBox}{
+   \textbf{En \textit{Ubuntu} \textit{Linux}:}
+    \begin{itemize}
+        \item Abre una terminal.
+        \item Actualiza la lista de paquetes: \texttt{sudo apt-get update}
+        \item Instala \textit{Git} con el siguiente comando: \texttt{sudo apt-get install git}
+        \item Verifica la instalación ejecutando: \texttt{git --version}
+    \end{itemize}
+}\end{uemClipBox}
+
+\subsection{Configuración Inicial de \href{https://git-scm.com/}{\textit{Git}}}
+Una vez instalado \href{https://git-scm.com/}{\textit{Git}}, es importante configurarlo con tu nombre y correo electrónico, ya que esta información se utilizará en los commits:
+
+\begin{minted}{bash}
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu.email@example.com"
+\end{minted}
+
+\newpage
+\section{Creación y Clonación de Repositorios con \href{https://github.com}{\textit{GitHub}}}
+
+\subsection{Crear un Repositorio desde la interfaz web:}
+
+Para crear un nuevo repositorio en \href{https://github.com}{\textit{GitHub}} desde la web:
+\begin{itemize}
+    \item Inicia sesión en \href{https://github.com}{\textit{GitHub}} y navega a tu perfil.
+    \item Haz clic en el botón \textit{New} para crear un nuevo repositorio.
+    \item Asigna un nombre al repositorio y selecciona si deseas que sea público o privado.
+    \item Puedes inicializar el repositorio con un archivo \texttt{README.md} y una licencia.
+    \item Haz clic en \textit{Create repository}.
+\end{itemize}
+
+\subsection{Crear un Repositorio desde la Terminal:}
+
+Para crear un nuevo repositorio en \href{https://github.com}{\textit{GitHub}} usando la terminal, sigue estos pasos:
+
+\begin{itemize}
+    \item Abre una terminal y navega al directorio donde quieres crear el repositorio:
+    \begin{minted}[breaklines, fontsize=\scriptsize]{bash}
+    cd /ruta/a/tu/directorio
+    \end{minted}
+    \item Inicializa un nuevo repositorio de \git en ese directorio:
+    \begin{minted}[breaklines, fontsize=\scriptsize]{bash}
+    git init
+    \end{minted}
+    \item Añade todos los archivos del directorio al nuevo repositorio:
+    \begin{minted}[breaklines, fontsize=\scriptsize]{bash}
+    git add .
+    \end{minted}
+    \item Realiza el primer \textit{commit}:
+    \begin{minted}[breaklines, fontsize=\scriptsize]{bash}
+    git commit -m "Primer commit"
+    \end{minted}
+    \item Agrega el repositorio remoto manualmente:
+    \begin{minted}[breaklines, fontsize=\scriptsize]{sql}
+    git remote add origin https://github.com/usuario/nombre-del-repositorio.git
+    \end{minted}
+    \item Sube el \textit{commit} inicial al repositorio de \github:
+    \begin{minted}[breaklines, fontsize=\scriptsize]{bash}
+    git push -u origin master
+    \end{minted}
+\end{itemize}
+
+\subsection{Clonar un Repositorio}
+Para trabajar en un repositorio localmente, necesitas clonarlo:
+\begin{itemize}
+    \item Copia la URL del repositorio desde \href{https://github.com}{\textit{GitHub}}.
+    \item Abre tu terminal y navega al directorio donde deseas clonar el repositorio.
+    \item Ejecuta el siguiente comando:
+    \begin{minted}{bash}
+    git clone https://github.com/tu-usuario/tu-repositorio.git
+    \end{minted}
+\end{itemize}
+
+\subsection{Subir Cambios a un Repositorio}
+Para subir cambios a \href{https://github.com}{\textit{GitHub}} desde tu repositorio local:
+\begin{minted}{bash}
+git add .
+git commit -m "Mensaje descriptivo"
+git push origin main
+\end{minted}
+
+\section{Concepto y Necesidad de las Ramas en Git}
+
+En \git, una rama es una versión independiente del historial de un proyecto. Las ramas permiten a los desarrolladores trabajar en diferentes características, correcciones o experimentos de manera aislada, sin afectar el código principal hasta que estén listas para ser fusionadas. 
+
+\subsection{La Rama \texttt{main} (anteriormente \texttt{master})}
+
+La rama \texttt{main}, anteriormente conocida como \texttt{master}, es la rama por defecto y más importante en la mayoría de los repositorios de \git. Históricamente, esta rama se ha utilizado para representar la línea de desarrollo principal, es decir, el código que está en producción o que está preparado para ser lanzado.
+
+El cambio de nombre de \texttt{master} a \texttt{main} responde a una tendencia reciente en la comunidad tecnológica para usar un lenguaje más inclusivo y neutral. A pesar del cambio de nombre, la función de esta rama sigue siendo la misma.
+
+\subsubsection{¿Por qué es importante la rama \texttt{main}?}
+
+La rama \texttt{main} es crucial porque:
+
+\begin{itemize}
+    \item Estabilidad del código: la \texttt{main} contiene la versión más estable del proyecto. Solo se integran en esta rama los cambios que han sido completamente probados y aprobados, asegurando que cualquier versión del proyecto tomada de esta rama está lista para ser utilizada en producción.
+    \item Referente común: sirve como referencia común para todos los desarrolladores. Cualquier nuevo trabajo o funcionalidad se basa en el estado actual de la \texttt{main}.
+    \item Ciclo de desarrollo y liberación: la \texttt{main} está directamente relacionada con el ciclo de liberación del software. Cada nueva versión del software es una instantánea de la \texttt{main} en un momento dado.
+\end{itemize}
+
+\subsection{Necesidad de Ramas Adicionales en un Flujo de Trabajo Profesional}
+
+En un entorno de desarrollo profesional, la creación de múltiples ramas permite gestionar diferentes aspectos del desarrollo de manera organizada y eficiente. La necesidad de ramas adicionales surge por varias razones tecnológicas y de negocio:
+
+\subsubsection{Aislamiento de Funcionalidades}
+
+Cada nueva funcionalidad o corrección de errores se desarrolla en su propia rama (por ejemplo, una \texttt{feature branch}). Esto permite a los desarrolladores trabajar sin interferencias en el código existente y mantener la integridad del proyecto principal. Al aislar estas funcionalidades en ramas separadas, se pueden realizar pruebas exhaustivas antes de fusionarlas con las ramas principales.
+
+\subsubsection{Integración Continua y Despliegue Continuo (CI/CD)}
+
+La \gls{ci} y el \gls{cd} son prácticas fundamentales en el desarrollo moderno. Estas prácticas requieren una estructura de ramas que soporte la integración y prueba automática de código en diferentes etapas del ciclo de vida del desarrollo. Por ejemplo:
+
+\begin{itemize}
+    \item \texttt{develop} (rama de desarrollo): es la rama donde se integran las nuevas funcionalidades después de haber sido desarrolladas probadas en sus respectivas ramas \texttt{feature}. Esta rama es clave para las pruebas de integración y asegura que el código integrado funcione conjuntamente.
+    \item \texttt{preproduction} (rama de preproducción): una vez que el código en \texttt{develop} ha sido validado, se fusiona con la rama de preproducción para pruebas más exhaustivas que simulan el entorno de producción. Esta etapa permite identificar problemas que podrían no haberse detectado durante las pruebas en \texttt{develop}.
+    \item \texttt{main} (rama de producción): finalmente, el código aprobado y probado en \texttt{preproduction} se fusiona en \texttt{main}, listo para ser desplegado en producción.
+\end{itemize}
+
+\subsubsection{Gestión de Versiones y Despliegue Gradual}
+
+El uso de ramas permite una gestión más efectiva de versiones. Por ejemplo, es posible mantener versiones antiguas del software en una rama específica, mientras se desarrolla la siguiente versión en otra. Además, con la estructura de ramas, es más fácil gestionar despliegues graduales, donde solo una parte del código nuevo se libera en producción para ciertos usuarios antes de un despliegue completo.
+
+\subsubsection{Colaboración y Revisiones de Código}
+
+En equipos grandes, las ramas permiten una colaboración efectiva. Cada desarrollador puede trabajar en una rama diferente sin interferir con los demás. Además, el uso de ramas facilita las revisiones de código, ya que los cambios se pueden revisar y aprobar antes de ser fusionados con la rama principal.
+
+\subsubsection{Manejo de Emergencias}
+
+En casos donde se necesita corregir un problema crítico en producción, es común crear una rama \texttt{hotfix} a partir de \texttt{main}, realizar la corrección necesaria y luego fusionar esos cambios de nuevo en \texttt{main} y \texttt{develop} para asegurar que la solución se mantenga en futuras versiones.
+\subsubsection{Manejo de Emergencias: \textit{Hotfixes}}
+
+En el desarrollo de software, es común que, incluso después de que el código ha sido lanzado a producción, se descubran errores críticos que necesitan ser corregidos de inmediato. Aquí es donde entran en juego las ramas \texttt{hotfix}. Estas ramas se crean a partir de la rama \texttt{main} y permiten aplicar correcciones rápidas sin interferir con el desarrollo continuo de nuevas funcionalidades.
+
+\textbf{Proceso de un \textit{Hotfix}}:
+
+El proceso típico para manejar un \textit{hotfix} es el siguiente:
+
+\begin{itemize}
+    \item Crear la rama \texttt{hotfix}: cuando se identifica un problema crítico en producción, se crea una nueva rama a partir de \texttt{main}.
+    \item Aplicar la corrección: el equipo de desarrollo corrige el problema en la rama \texttt{hotfix}.
+    \item Integración a \texttt{main}: una vez corregido y probado, el hotfix se fusiona de vuelta en \texttt{main} para asegurar que la solución esté en producción lo antes posible.
+    \item Integración a \texttt{develop} y \texttt{preproduction}: luego, el hotfix se fusiona también en \texttt{develop} y \texttt{preproduction} para que los equipos continúen trabajando con la versión más actualizada del código.
+\end{itemize}
+
+\textbf{Manejo de Correcciones No Críticas (Bugfix)}:
+
+Si el problema identificado no es crítico y no requiere una solución inmediata en producción, se puede seguir un flujo de trabajo más estándar, utilizando una rama \texttt{bugfix}. Este proceso sigue pasos similares a los de una \texttt{feature branch}, pero enfocado en resolver un error específico.
+
+\begin{itemize}
+    \item Crear la rama \texttt{bugfix}: cuando se identifica un error que no es crítico, se crea una nueva rama a partir de \texttt{develop}, siguiendo la convención \texttt{bugfix/nombre-del-bug}.
+    \item Aplicar la corrección: el equipo de desarrollo corrige el problema en la rama \texttt{bugfix}.
+    \item Integración a \texttt{develop}: una vez corregido y probado, el bugfix se fusiona de vuelta en \texttt{develop}. Esto asegura que la corrección será incluida en la próxima versión que pase a preproducción.
+    \item Pruebas en \texttt{preproduction}: el código corregido, junto con otras funcionalidades, se prueba exhaustivamente en la rama \texttt{preproduction}.
+    \item Integración a \texttt{main}: una vez que el código ha sido probado en \texttt{preproduction} y está listo para ser lanzado, se fusiona en \texttt{main} como parte de un ciclo de liberación estándar.
+\end{itemize}
+
+\subsubsection{Gestión de Versiones}
+
+El control de versiones es una práctica esencial en el desarrollo profesional, permitiendo a los equipos identificar y desplegar diferentes estados del software de manera organizada. Normalmente, las versiones siguen un esquema de numeración semántica, como \texttt{1.1.2}, donde cada número tiene un significado específico:
+
+\begin{itemize}
+    \item \textit{Major} (1.x.x): cambios grandes que podrían no ser compatibles con versiones anteriores.
+    \item \textit{Minor} (x.1.x): nuevas funcionalidades que son compatibles con versiones anteriores.
+    \item \textit{Patch} (x.x.2): correcciones de errores y pequeños ajustes que no afectan la compatibilidad.
+\end{itemize}
+
+\textbf{Proceso de Versionado y Liberación}:
+
+El ciclo típico para la liberación de una nueva versión del software incluye los siguientes pasos:
+
+\begin{itemize}
+    \item Desarrollo en \texttt{develop}: las nuevas funcionalidades se desarrollan en ramas \texttt{feature} y se integran en \texttt{develop} una vez completadas.
+    \item Pruebas en \texttt{preproduction}: después de integrar todas las funcionalidades y corregir los errores, el código en \texttt{develop} se fusiona en \texttt{preproduction} para pruebas exhaustivas.
+    \item Liberación en \texttt{main}: una vez que las pruebas en \texttt{preproduction} son satisfactorias, el código se fusiona en \texttt{main}, y se asigna un número de versión basado en el esquema semántico.
+    \item Subir la versión: la nueva versión se etiqueta en \texttt{main} utilizando un comando como \texttt{git tag v1.1.2}, y luego se sube al repositorio remoto con \texttt{git push origin --tags}.
+\end{itemize}
+
+\subsubsection{Ejemplo Representativo}
+
+Supongamos que estamos trabajando en un proyecto de software que actualmente está en la versión \texttt{1.1.0}. Recientemente se ha descubierto un error crítico en producción que afecta a los usuarios, por lo que se debe realizar un hotfix de inmediato. Paralelamente, el equipo de desarrollo está trabajando en una nueva funcionalidad que se planifica lanzar como versión \texttt{1.2.0}.
+
+El proceso sería el siguiente:
+
+\begin{itemize}
+    \item Identificación del error: se descubre un error crítico en la versión \texttt{1.1.0} en producción.
+    \item Creación del Hotfix: Se crea una rama \texttt{hotfix/critical-bugfix} a partir de \texttt{main}:
+    \begin{minted}{bash}
+    git checkout main
+    git checkout -b hotfix/critical-bugfix
+    \end{minted}
+    \item Aplicación y fusión del Hotfix: el error se corrige y se fusiona de vuelta a \texttt{main}:
+    \begin{minted}{bash}
+    git commit -am "Corrige el error crítico en producción"
+    git checkout main
+    git merge hotfix/critical-bugfix
+    \end{minted}
+    \item Actualización de \texttt{develop} y \texttt{preproduction}: El hotfix también se fusiona en \texttt{develop} y \texttt{preproduction} para mantener la coherencia:
+    \begin{minted}{bash}
+    git checkout develop
+    git merge hotfix/critical-bugfix
+    
+    git checkout preproduction
+    git merge hotfix/critical-bugfix
+    \end{minted}
+    \item Versionado: se etiqueta la nueva versión como \texttt{1.1.1}:
+    \begin{minted}{bash}
+    git tag v1.1.1
+    git push origin --tags
+    \end{minted}
+    \item Desarrollo Continuo: mientras tanto, el equipo continúa trabajando en la nueva funcionalidad en la rama \texttt{feature/new-feature}, que eventualmente se integrará en \texttt{develop}, y luego pasará a \texttt{preproduction} antes de su lanzamiento como \texttt{1.2.0}.
+\end{itemize}
+
+Este flujo de trabajo asegura que el proyecto esté bien estructurado, con un manejo claro de las versiones, la capacidad de responder rápidamente a problemas críticos y un desarrollo continuo y organizado de nuevas funcionalidades.
+
+\section{Estructura de Ramas en un Flujo de Trabajo Profesional}
+En un proyecto de desarrollo profesional, es común utilizar una estructura de ramas para gestionar el desarrollo y la liberación de código. A continuación, se describe un flujo de trabajo típico con las ramas \texttt{main}, \texttt{preproduction}, \texttt{develop}, y \texttt{features}.
+
+\subsection{Ramas Principales}
+\begin{itemize}
+    \item \textbf{main}: contiene el código que está en producción. Solo se hacen merges en esta rama cuando el código ha pasado todas las pruebas y está listo para ser lanzado.
+    \item \textbf{preproduction}: se utiliza para probar el código antes de lanzarlo a producción. Esta rama es un paso intermedio entre \texttt{develop} y \texttt{main}.
+    \item \textbf{develop}: contiene el código más reciente y probado por el equipo de desarrollo. Es la rama donde se integran todas las funcionalidades antes de pasar a preproducción.
+\end{itemize}
+
+\subsection{Ramas de Funcionalidades (\textit{Features})}
+\begin{itemize}
+    \item \textbf{features/*}: Se crean ramas a partir de \texttt{develop} para trabajar en nuevas funcionalidades o corregir errores. Una vez que la funcionalidad está lista, la rama \texttt{features/*} se mergea de vuelta a \texttt{develop}.
+\end{itemize}
+
+\section{Proceso de \textit{Merge} entre Ramas}
+\subsection{Integración de Funcionalidades}
+Una vez que se completa el desarrollo de una funcionalidad en una rama \texttt{feature}, se debe realizar un merge hacia \texttt{develop}:
+\begin{minted}{bash}
+git checkout develop
+git merge feature/nueva-funcionalidad
+\end{minted}
+
+\subsection{Promoción a Preproducción}
+Cuando el código en \texttt{develop} ha sido probado y está listo para preproducción, se realiza un merge con \texttt{preproduction}:
+\begin{minted}{bash}
+git checkout preproduction
+git merge develop
+\end{minted}
+
+\subsection{Lanzamiento a Producción}
+Finalmente, cuando todo está listo para producción, se realiza el merge a la rama \texttt{main}:
+\begin{minted}{bash}
+git checkout main
+git merge preproduction
+\end{minted}
+
+\newpage
+\section*{Resumen}
+\label{sec:resumen}
+
+En este tema, hemos aprendido los conceptos fundamentales de \href{https://git-scm.com/}{\textit{Git}} y \href{https://github.com}{\textit{GitHub}}, cómo instalar y configurar \href{https://git-scm.com/}{\textit{Git}}, y cómo trabajar con repositorios en \href{https://github.com}{\textit{GitHub}}. También hemos explorado una estructura de ramas típica en un entorno de desarrollo profesional y el proceso de integración de cambios entre estas ramas.
+
+\newpage
+\printglossary[title=Acrónimos, type=\acronymtype]
+
+\newpage
+\uemBibliography
+
+\end{document}

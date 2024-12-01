@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }sudo\PYG{+w}{ }chmod\PYG{+w}{ }\PYG{l+m}{700}\PYG{+w}{ }/home/usuario/.ssh
+\end{Verbatim}

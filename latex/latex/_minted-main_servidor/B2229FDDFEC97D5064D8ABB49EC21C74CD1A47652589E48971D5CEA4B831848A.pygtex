@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }conda\PYG{+w}{ }\PYGZhy{}\PYGZhy{}version
+\PYG{+w}{        }conda\PYG{+w}{ }create\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }nombre\PYG{l+s+se}{\PYGZbs{}\PYGZus{}}del\PYG{l+s+se}{\PYGZbs{}\PYGZus{}}entorno\PYG{+w}{  }\PYG{n+nv}{python}\PYG{o}{=}\PYG{l+m}{3}.12
+\end{Verbatim}

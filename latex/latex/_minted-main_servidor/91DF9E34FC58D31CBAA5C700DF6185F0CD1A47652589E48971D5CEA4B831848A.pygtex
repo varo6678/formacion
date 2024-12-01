@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }touch\PYG{+w}{ }authorized\PYGZus{}keys\PYGZus{}pem
+\end{Verbatim}

@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }touch\PYG{+w}{ }/home/usuario/.ssh/authorized\PYGZus{}keys
+\PYG{+w}{        }sudo\PYG{+w}{ }chmod\PYG{+w}{ }\PYG{l+m}{600}\PYG{+w}{ }/home/usuario/.ssh/authorized\PYGZus{}keys
+\PYG{+w}{        }sudo\PYG{+w}{ }chown\PYG{+w}{ }\PYGZhy{}R\PYG{+w}{ }usuario:usuario\PYG{+w}{ }/home/usuario/.ssh
+\end{Verbatim}

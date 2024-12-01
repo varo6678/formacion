@@ -1,0 +1,216 @@
+\chapter{Configuración en servidor remoto}
+
+\section{Crear un usuario en Ubuntu y configurar acceso remoto por SSH}
+
+Este es el proceso para crear un usuario, darle permisos de administrador y configurar el acceso remoto por SSH.
+
+\subsection{Crear un usuario y añadirlo al grupo \texttt{sudo}}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minted}{bash}
+        sudo adduser usuario
+        sudo usermod -aG sudo usuario
+    \end{minted}
+    \caption{Comandos para crear un usuario y asignar permisos de administrador (\texttt{sudo}).}
+    \label{fig:adduser-sudo}
+\end{figure}
+
+\begin{itemize}
+    \item \texttt{-a}: Añade al usuario a un grupo existente sin sobrescribir otros grupos a los que ya pertenece.
+    \item \texttt{-G}: Especifica los grupos secundarios a los que el usuario será añadido.
+\end{itemize}
+
+\subsection{Crear la carpeta \texttt{.ssh} para claves SSH}
+
+Ya una vez tenemos los permisos creados para usuario. Simplemente nos cambiamos a su perfil haciendo:
+
+\begin{figure}[h!]
+    \centering
+    \begin{minted}{bash}
+        sudo su usuario
+    \end{minted}
+    \caption{Cambio a usuario.}
+    \label{fig:adduser-sudo}
+\end{figure}
+
+Ahora gracias a lo ya ejecutado en la figura \ref{fig:adduser-sudo}. Como tenemos permisos de administrador, podemos
+obviar el comando sudo (en caso de que este fuera necesario).
+
+\begin{figure}[h!]
+    \centering
+    \begin{minted}{bash}
+        mkdir /home/usuario/.ssh
+    \end{minted}
+    \caption{Comandos para crear un usuario y asignar permisos de administrador (\texttt{sudo}).}
+    \label{fig:adduser-sudo}
+\end{figure}
+
+Ahora nos fijamos en los permisos que tiene la carpeta. Son muchos. Demasiados para este protocolo que requiere algo mas de seguridad.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagenes/ll_ssh.png}
+    \caption[Detalle de los permisos para las carpetas o ficheros alojados en nuestro path.]{Detalle de los permisos para las carpetas o ficheros alojados en nuestro path.}
+    \label{fig:ll_ssh}
+\end{figure}
+
+Aqui tenemos una ligera idea de los permisos requeridos. Luego efectuamos el cambio, ver figura \ref{fig:cambio_permisos_ssh}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagenes/permisos_ssh.png}
+    \caption[Permisos para lo alojado en la carpeta .ssh. Fuente: \href{https://jonasbn.github.io/til/ssh/permissions\_on\_ssh\_folder\_and\_files.html}{jonasbn.github.io}]{Permisos para lo alojado en la carpeta .ssh. Fuente: \href{https://jonasbn.github.io/til/ssh/permissions\_on\_ssh\_folder\_and\_files.html}{jonasbn.github.io}}
+    \label{fig:permisos_ssh}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minted}{bash}
+        sudo chmod 700 /home/usuario/.ssh
+    \end{minted}
+    \caption{Cambio de permisos para la carpeta .ssh a 700.}
+    \label{fig:cambio_permisos_ssh}
+\end{figure}
+
+\begin{itemize}
+    \item La carpeta \texttt{.ssh} es donde se almacenan las claves SSH.
+    \item El permiso \texttt{700} asegura que solo el propietario pueda leer, escribir y ejecutar.
+\end{itemize}
+
+\subsection{Configurar las claves autorizadas}
+
+A priori tenemos un fichero con extension .pem. Este al ser la clave privada tendra un permiso 600. Que debemos asegurarnos de que sea asi.
+Ademas debera pertenecer al propio usuario. Lo unico que este debe estar alojado en nuestro ordenador personal (en local). En el servidor remoto
+tiene que estar con la denomicacion \texttt{authorized\_keys} la clave publica. Pero podemos dejar a modo de placeholder hasta ponerla su fichero de destino vacio.
+Ademas con sus permisos correctos
+
+\begin{figure}[h!]
+    \centering
+    \begin{minted}{bash}
+        touch /home/usuario/.ssh/authorized_keys
+        sudo chmod 600 /home/usuario/.ssh/authorized_keys
+        sudo chown -R usuario:usuario /home/usuario/.ssh
+    \end{minted}
+    \caption{Se crea \texttt{authorized\_keys} y se le asignan los permisos correspondientes para la correcta configuración.}
+    \label{fig:creamos_authorized_keys}
+\end{figure}
+
+\begin{itemize}
+    \item Con el comando touch creamos el nuevo fichero \texttt{authorized\_keys}.
+    \item El archivo \texttt{authorized\_keys} contiene las claves públicas permitidas para autenticarse.
+    \item \texttt{chmod 600}: El archivo debe ser accesible solo para el propietario.
+    \item \texttt{chown}: Cambia la propiedad de la carpeta \texttt{.ssh} y su contenido al usuario correspondiente.
+\end{itemize}
+
+
+\subsection{Convertir un archivo \texttt{.pem} a una clave pública}
+
+Si tienes una clave privada en formato \texttt{.pem}, puedes generar la clave pública de esta manera:
+
+
+\begin{figure}[h!]
+    \centering
+    \begin{minted}{bash}
+        ssh-keygen -y -f authorized_keys_pem > authorized_keys
+    \end{minted}
+    \caption{Se crea \texttt{authorized\_keys} y se le asignan los permisos correspondientes para la correcta configuración.}
+    \label{fig:creamos_authorized_keys}
+\end{figure}
+
+\subsection{Crear un archivo \texttt{authorized\_keys\_pem}}
+
+Le ponemos una denomicacion diferente para no confundirla con la publica de destino.
+
+\begin{figure}[h!]
+    \centering
+    \begin{minted}{bash}
+        touch authorized_keys_pem
+    \end{minted}
+    \caption{Se crea \texttt{authorized\_keys} y se le asignan los permisos correspondientes para la correcta configuración.}
+    \label{fig:creamos_authorized_keys}
+\end{figure}
+
+Esto crea un archivo vacío llamado \texttt{authorized\_keys\_pem}, necesario para almacenar la clave privada.
+Finalmente quedara copiar el contenido de esta dentro del authorized\_keys publico que habiamos hecho anteriormente en la figura \ref{fig:creamos_authorized_keys}.
+
+Luego abrimos el editor de texto nano (ya preinstalado) copiamos y pegamos el contenido de \texttt{authorized\_keys\_pem} en \texttt{authorized\_keys}.
+Tambien podriamos simplemente haber copiado \texttt{authorized\_keys\_pem} dentro de la misma carpeta con el nombre \texttt{authorized\_keys} y despues
+asignarle los permisos correspondientes como hicimos en la figura \ref{fig:creamos_authorized_keys}.
+
+La configuracion ya quedaria lista para sentencia.
+
+\section{Configurar VSCode}
+
+Aqui tenemos que acceder a la siguiente ventana, apretando \texttt{ctrl+shift+p}. En caso de que no aparezca, poner en la ventana ssh y buscar dicho resultado.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagenes/ssh_vscode.png}
+    \caption[Ventana de busqueda del entorno de VSCode]{Ventana de busqueda del entorno de VSCode}
+\end{figure}
+
+Ahora hacemos \textit{click} y vamos a la carpeta alojada en nuestro usuario del \texttt{SO} y despues incorporamos las variables
+que necesita VSCode para poder conectarse via OpenSSH.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagenes/carpeta_local_ssh.png}
+    \caption[Ventana de busqueda del entorno de VSCode]{Ventana de busqueda del entorno de VSCode}
+\end{figure}
+
+Esta seria la configuracion:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagenes/archivo_configuracion_ssh_vscode.png}
+    \caption[Ventana de busqueda del entorno de VSCode]{Ventana de busqueda del entorno de VSCode}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagenes/esquina_inferior_izquierda.png}
+    \caption[Ventana de busqueda del entorno de VSCode]{Ventana de busqueda del entorno de VSCode}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagenes/connect_to_host_vscode.png}
+    \caption[Ventana de busqueda del entorno de VSCode]{Ventana de busqueda del entorno de VSCode}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagenes/azure.png}
+    \caption[Ventana de busqueda del entorno de VSCode]{Ventana de busqueda del entorno de VSCode}
+\end{figure}
+
+Saldra una ventana en la que tenemos que poner el SO de destino, en nuestro caso a priori deberia ser Linux (independientemente de la distribucion).
+
+\newpage
+\section{Instalacion de miniconda}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minted}{bash}
+        mkdir $HOME
+        cd $HOME
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        chmod +x miniconda.sh
+        ./miniconda.sh
+        export PATH=~/miniconda3/bin:$PATH
+        source ~/.bashrc
+    \end{minted}
+    \caption{Se crea \texttt{authorized\_keys} y se le asignan los permisos correspondientes para la correcta configuración.}
+    \label{fig:creamos_authorized_keys}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minted}{bash}
+        conda --version
+        conda create -n nombre\_del\_entorno  python=3.12
+    \end{minted}
+    \caption{Se crea \texttt{authorized\_keys} y se le asignan los permisos correspondientes para la correcta configuración.}
+    \label{fig:creamos_authorized_keys}
+\end{figure}

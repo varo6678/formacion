@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }sudo\PYG{+w}{ }adduser\PYG{+w}{ }usuario
+\PYG{+w}{        }sudo\PYG{+w}{ }usermod\PYG{+w}{ }\PYGZhy{}aG\PYG{+w}{ }sudo\PYG{+w}{ }usuario
+\end{Verbatim}

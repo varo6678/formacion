@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }mkdir\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}HOME}
+\PYG{+w}{        }\PYG{n+nb}{cd}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}HOME}
+\PYG{+w}{        }wget\PYG{+w}{ }https://repo.anaconda.com/miniconda/Miniconda3\PYGZhy{}latest\PYGZhy{}Linux\PYGZhy{}x86\PYGZus{}64.sh\PYG{+w}{ }\PYGZhy{}O\PYG{+w}{ }miniconda.sh
+\PYG{+w}{        }chmod\PYG{+w}{ }+x\PYG{+w}{ }miniconda.sh
+\PYG{+w}{        }./miniconda.sh
+\PYG{+w}{        }\PYG{n+nb}{export}\PYG{+w}{ }\PYG{n+nv}{PATH}\PYG{o}{=}\PYGZti{}/miniconda3/bin:\PYG{n+nv}{\PYGZdl{}PATH}
+\PYG{+w}{        }\PYG{n+nb}{source}\PYG{+w}{ }\PYGZti{}/.bashrc
+\end{Verbatim}
